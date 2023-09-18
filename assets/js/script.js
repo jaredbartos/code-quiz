@@ -49,7 +49,6 @@ var questions = {
     correctAnswer: "console.log",
   },
 };
-var highScores = {};
 
 function displayScore() {
   timeLeft = 0;
@@ -83,24 +82,29 @@ function submitScore() {
   var scoreList = document.createElement("ol");
   var goBackBtn = document.createElement("button");
   var clearHighScoresBtn = document.createElement("button");
+  var highScores
 
-  highScores = {
-    score1: {
-      name: [nameInput.value],
-      score: [finalScore],
-    },
-  };
-  localStorage.setItem("name", highScores.score1.name);
-  localStorage.setItem("score", highScores.score1.score);
-  questionAsked.removeChild(finalScoreText);
-  questionAsked.removeChild(nameForm);
   questionAsked.textContent = "High scores";
+  var stored = localStorage.getItem("scores")
+  highScores = JSON.parse(stored);
+  if (highScores === null) {
+    highScores = [
+      {
+        name: nameInput.value,
+        score: finalScore,
+      }
+    ]
+    } else {
+      highScores.push({name: nameInput.value, score: finalScore});
+      highScores = highScores.sort(function(a, b) {return b.score - a.score});
+    }
+  localStorage.setItem("scores", JSON.stringify(highScores));
   questionAsked.appendChild(scoreList);
-  for (i = 0; i < highScores.score1.name.length; i++) {
+  for (i = 0; i < highScores.length; i++) {
     var li = document.createElement("li");
     scoreList.appendChild(li);
     li.setAttribute("class", "highScore")
-    li.textContent = localStorage.getItem("name") + " - " + localStorage.getItem("score");
+    li.textContent = highScores[i].name + " - " + highScores[i].score;
   }
   questionAsked.appendChild(goBackBtn)
   goBackBtn.setAttribute("type", "button");
@@ -110,6 +114,14 @@ function submitScore() {
   clearHighScoresBtn.setAttribute("type", "button");
   clearHighScoresBtn.setAttribute("class", "highScoreBtns");
   clearHighScoresBtn.textContent = "Clear high scores";
+
+  clearHighScoresBtn.addEventListener("click", function() {
+    localStorage.clear();
+    scoreList.style.visibility = "hidden";
+  });
+  goBackBtn.addEventListener("click", function() {
+    location.reload()
+  });
 }
 
 function finishQuiz() {
@@ -235,3 +247,4 @@ startBtn.addEventListener("click", addFirstQuestion);
 answerList.addEventListener("click", giveFeedback);
 
 submitBtn.addEventListener("click", submitScore);
+
