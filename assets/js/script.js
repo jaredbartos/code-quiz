@@ -87,18 +87,46 @@ function finishQuiz() {
 
 };
 
+function goodFeedback() {
+  var feedbackTimer = 1;
+  var feedbackInterval = setInterval(function() {
+    if (feedbackTimer > 0) {
+      feedback.style.borderTop = "2px solid gray";
+      feedback.textContent = "Correct!";
+      feedback.style.display = "block";
+      feedbackTimer -= 0.1;
+    } else {
+      clearInterval(feedbackInterval);
+      feedback.style.display = "none";
+    }
+   }, 100);
+}
+
+function badFeedback() {
+  var feedbackTimer = 1;
+  var feedbackInterval = setInterval(function() {
+    if (feedbackTimer > 0) {
+      feedback.style.borderTop = "2px solid gray";
+      feedback.textContent = "Wrong!";
+      feedback.style.display = "block";
+      feedbackTimer -= 0.1;
+    } else {
+      clearInterval(feedbackInterval);
+      feedback.style.display = "none";
+    }
+   }, 100);
+}
+
 function giveFeedback(event) {
   var selectedAnswer = event.target;
   if (num <= 4) {
     if (selectedAnswer.textContent === questions[num].correctAnswer) {
-      feedback.style.borderTop = "2px solid gray";
-      feedback.textContent = "Correct!";
+      goodFeedback();
       score += 5;
       num++;
       nextQuestion();
     } else if (selectedAnswer.textContent !== questions[num].correctAnswer && selectedAnswer.getAttribute("class") === "answer") {
-      feedback.style.borderTop = "2px solid gray";
-      feedback.textContent = "Wrong!";
+      badFeedback();
       timeLeft -= 10;
       score -= 2;
       num++;
@@ -106,14 +134,12 @@ function giveFeedback(event) {
     }
   } else if (num = 5) {
     if (selectedAnswer.textContent === questions[num].correctAnswer) {
-      answerList.style.borderBottom = "2px solid gray";
-      feedback.textContent = "Correct!";
+      goodFeedback();
       score += 5;
       num++;
       finishQuiz();
     } else if (selectedAnswer.textContent !== questions[num].correctAnswer && selectedAnswer.getAttribute("class") === "answer") {
-      answerList.style.borderBottom = "2px solid gray";
-      feedback.textContent = "Wrong!";
+      badFeedback();
       score -= 2;
       num++;
       finishQuiz();
@@ -126,7 +152,7 @@ function giveFeedback(event) {
 function countdown() {
   timer.textContent = "Time: " + timeLeft;
 
-  var timeInterval = setInterval(function () {
+  var timeInterval = setInterval(function() {
       if (timeLeft === 0 && num === 6) {
         clearInterval(timeInterval);
         timer.textContent = "Time: " + timeLeft;
