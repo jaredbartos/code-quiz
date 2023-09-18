@@ -14,8 +14,14 @@ var score = 0;
 var num = 1;
 var feedback = document.createElement("h2");
 var finalScoreText = document.createElement("p");
-
-
+var finalScore = 0;
+var nameInput = "";
+var participantName = nameInput.value;
+var participantScore = finalScore;
+var nameForm = document.createElement("form");
+var nameLabel = document.createElement("label");
+var nameInput = document.createElement("input");
+var submitBtn = document.createElement("button");
 var questions = {
   1: {
     question: "Commonly used data types do NOT include:",
@@ -43,18 +49,9 @@ var questions = {
     correctAnswer: "console.log",
   },
 };
-
-var highScores = {
-  names: [],
-  scores: [],
-};
+var highScores = {};
 
 function displayScore() {
-  var nameForm = document.createElement("form");
-  var nameLabel = document.createElement("label");
-  var nameInput = document.createElement("input");
-  var submitBtn = document.createElement("button");
-  
   timeLeft = 0;
   questionAsked.removeChild(answerList);
   questionAsked.appendChild(finalScoreText);
@@ -79,12 +76,45 @@ function displayScore() {
   nameInput.setAttribute("name", "user_name");
   nameLabel.textContent = "Enter Name: ";
   submitBtn.textContent = "Submit";
+  finalScore = score;
+}
+
+function submitScore() {
+  var scoreList = document.createElement("ol");
+  var goBackBtn = document.createElement("button");
+  var clearHighScoresBtn = document.createElement("button");
+
+  highScores = {
+    score1: {
+      name: [nameInput.value],
+      score: [finalScore],
+    },
+  };
+  localStorage.setItem("name", highScores.score1.name);
+  localStorage.setItem("score", highScores.score1.score);
+  questionAsked.removeChild(finalScoreText);
+  questionAsked.removeChild(nameForm);
+  questionAsked.textContent = "High scores";
+  questionAsked.appendChild(scoreList);
+  for (i = 0; i < highScores.score1.name.length; i++) {
+    var li = document.createElement("li");
+    scoreList.appendChild(li);
+    li.setAttribute("class", "highScore")
+    li.textContent = localStorage.getItem("name") + " - " + localStorage.getItem("score");
+  }
+  questionAsked.appendChild(goBackBtn)
+  goBackBtn.setAttribute("type", "button");
+  goBackBtn.setAttribute("class", "highScoreBtns");
+  goBackBtn.textContent = "Go back";
+  questionAsked.appendChild(clearHighScoresBtn);
+  clearHighScoresBtn.setAttribute("type", "button");
+  clearHighScoresBtn.setAttribute("class", "highScoreBtns");
+  clearHighScoresBtn.textContent = "Clear high scores";
 }
 
 function finishQuiz() {
   questionText.textContent = "All Done!";
   displayScore();
-
 };
 
 function goodFeedback() {
@@ -147,8 +177,6 @@ function giveFeedback(event) {
   }
 };
 
-
-
 function countdown() {
   timer.textContent = "Time: " + timeLeft;
 
@@ -205,3 +233,5 @@ function addFirstQuestion() {
 startBtn.addEventListener("click", addFirstQuestion);
 
 answerList.addEventListener("click", giveFeedback);
+
+submitBtn.addEventListener("click", submitScore);
