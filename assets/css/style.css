@@ -35,7 +35,7 @@ h1 {
 }
 
 #questionBox {
-  width: 50%;
+  width: 70%;
   text-align: center;
   margin: 120px auto;
 }
@@ -44,7 +44,7 @@ h1 {
   margin: 30px 0;
 }
 
-button {
+#start {
   margin-top: 10px;
   padding: 15px 25px;;
   font-size: 150%;
@@ -68,6 +68,7 @@ ol {
   list-style-type: decimal;
   list-style-position: inside;
   margin-top: 50px;
+  padding-bottom: 30px;
 }
 
 .answer {
@@ -78,5 +79,43 @@ ol {
   color: white;
   padding: 20px;
   margin-top: 10px;
-  width: 300px;
+  width: 350px;
+}
+
+#feedback {
+  color: gray;
+  font-size: 200%;
+  text-align: left;
+  font-style: italic;
+  padding-top: 30px;
+}
+
+#finalScoreMessage {
+  font-weight: normal;
+  padding: 20px 0;
+}
+
+label {
+  font-weight: normal;
+  font-size: 80%;
+}
+
+#submitBtn {
+  margin-top: 10px;
+  margin-left: 20px;
+  padding: 5px 25px;;
+  font-size: 80%;
+  background-color: var(--dark-purple);
+  color: white;
+  border-radius: var(--border-radius);
+  font-weight: normal;
+}
+
+#name {
+  font-size: 80%;
+  font-weight: normal;
+}
+
+form {
+  width: 100%;
 }
