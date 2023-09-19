@@ -76,7 +76,7 @@ function viewHighScores() {
       var li = document.createElement("li");
       scoreList.appendChild(li);
       li.setAttribute("class", "highScore")
-      li.textContent = highScores[i].name + " - " + highScores[i].score;
+      li.textContent = highScores[i].name + " - " + highScores[i].score + "%";
     };
   }
   questionBox.appendChild(goBackBtn);
