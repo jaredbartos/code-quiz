@@ -53,19 +53,9 @@ h1 {
   border-radius: var(--border-radius);
 }
 
-button:hover,
-.answer:hover {
-  background-color: var(--light-purple);
-  cursor: pointer;
-}
-
 #highScores {
   color: var(--light-purple);
   text-decoration: none;
-}
-
-#highScores:hover {
-  cursor: pointer;
 }
 
 ol {
@@ -134,11 +124,44 @@ form {
 
 .highScoreBtns {
   margin-top: 10px;
-  margin-left: 20px;
   padding: 5px 25px;;
   font-size: 150%;
   background-color: var(--dark-purple);
   color: white;
   border-radius: var(--border-radius);
   font-weight: normal;
+}
+
+@media screen and (max-width: 500px) {
+  .answer {
+    width: 250px;
+  }
+  #questionBox {
+    margin: 50px auto;
+  }
+  #name {
+    width: 200px;
+    font-size: 80%;
+  }
+  h1 {
+    font-size: 175%;
+  }
+  #intro {
+    font-size: 125%;
+  }
+  #submitBtn {
+    margin-left: 0;
+  }
+}
+
+@media (hover: hover) {
+  button:hover,
+  .answer:hover {
+    background-color: var(--light-purple);
+    cursor: pointer;
+  }
+
+  #highScores:hover {
+    cursor: pointer;
+  }
 }
