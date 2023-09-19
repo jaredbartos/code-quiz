@@ -1,9 +1,11 @@
+/* VARIABLES */
 :root {
   --light-purple: #b243be;
   --dark-purple: #340564;
   --border-radius: 10px;
 }
 
+/* Set universal font */
 * {
   font-family: Helvetica, sans-serif;
 }
@@ -44,6 +46,7 @@ h1 {
   margin: 30px 0;
 }
 
+/* Start quiz button on home page */
 #start {
   margin-top: 10px;
   padding: 15px 25px;;
@@ -58,13 +61,7 @@ h1 {
   text-decoration: none;
 }
 
-ol {
-  list-style-type: decimal;
-  list-style-position: inside;
-  margin-top: 50px;
-  padding-bottom: 30px;
-}
-
+/* Answer choices during quiz */
 .answer {
   font-weight: normal;
   font-size: 70%;
@@ -76,6 +73,7 @@ ol {
   width: 350px;
 }
 
+/* Correct or Wrong display after answer */
 #feedback {
   color: gray;
   font-size: 200%;
@@ -84,14 +82,10 @@ ol {
   padding-top: 30px;
 }
 
+/* FINAL SCORE AND SUBMIT SCREEN */
 #finalScoreMessage {
   font-weight: normal;
   padding: 20px 0;
-}
-
-label {
-  font-weight: normal;
-  font-size: 80%;
 }
 
 #submitBtn {
@@ -105,15 +99,30 @@ label {
   font-weight: normal;
 }
 
+/* Name Form */
 #name {
   font-size: 80%;
   font-weight: normal;
+}
+
+label {
+  font-weight: normal;
+  font-size: 80%;
 }
 
 form {
   width: 100%;
 }
 
+/* High score list */
+ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+  margin-top: 50px;
+  padding-bottom: 30px;
+}
+
+/* High score list items */
 .highScore {
   font-weight: normal;
   background-color:#cec1d9;
@@ -122,6 +131,7 @@ form {
   width: 60%;
 }
 
+/* Buttons on high score screen */
 .highScoreBtns {
   margin-top: 10px;
   margin-right: 10px;
@@ -133,6 +143,7 @@ form {
   font-weight: normal;
 }
 
+/* MEDIA QUERIES */
 @media screen and (max-width: 500px) {
   .answer {
     width: 250px;
