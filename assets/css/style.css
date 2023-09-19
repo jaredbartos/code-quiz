@@ -15,7 +15,7 @@ body {
 
 header {
   margin: 40px;
-  width: 95%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   font-size: 150%;
@@ -62,6 +62,10 @@ button:hover,
 #highScores {
   color: var(--light-purple);
   text-decoration: none;
+}
+
+#highScores:hover {
+  cursor: pointer;
 }
 
 ol {
@@ -129,11 +133,10 @@ form {
 }
 
 .highScoreBtns {
-  display: inline-block;
   margin-top: 10px;
   margin-left: 20px;
   padding: 5px 25px;;
-  font-size: 80%;
+  font-size: 150%;
   background-color: var(--dark-purple);
   color: white;
   border-radius: var(--border-radius);

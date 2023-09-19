@@ -4,6 +4,8 @@ var questionText = document.querySelector("#questionText");
 var timer = document.querySelector("#timer");
 var highScoresLink = document.querySelector("#highScores");
 var startBtn = document.querySelector("#start");
+var intro = document.querySelector("#intro");
+var highScoresLink = document.querySelector("#highScores");
 var timeLeft = 75
 var answerList = document.createElement("ol");
 var answer1 = document.createElement("li");
@@ -22,6 +24,17 @@ var nameForm = document.createElement("form");
 var nameLabel = document.createElement("label");
 var nameInput = document.createElement("input");
 var submitBtn = document.createElement("button");
+var scoreList = document.createElement("ol");
+var goBackBtn = document.createElement("button");
+goBackBtn.setAttribute("type", "button");
+goBackBtn.setAttribute("class", "highScoreBtns");
+goBackBtn.textContent = "Go back";
+var clearHighScoresBtn = document.createElement("button");
+clearHighScoresBtn.setAttribute("type", "button");
+clearHighScoresBtn.setAttribute("class", "highScoreBtns");
+clearHighScoresBtn.textContent = "Clear high scores";
+var stored = localStorage.getItem("scores")
+var highScores = JSON.parse(stored);
 var questions = {
   1: {
     question: "Commonly used data types do NOT include:",
@@ -49,6 +62,7 @@ var questions = {
     correctAnswer: "console.log",
   },
 };
+var questionsLength = Object.keys(questions).length;
 
 function displayScore() {
   timeLeft = 0;
@@ -78,15 +92,32 @@ function displayScore() {
   finalScore = score;
 }
 
-function submitScore() {
-  var scoreList = document.createElement("ol");
-  var goBackBtn = document.createElement("button");
-  var clearHighScoresBtn = document.createElement("button");
-  var highScores
+function viewHighScores() {
+  intro.remove();
+  highScoresLink.remove();
+  startBtn.remove();
+  timer.remove();
+  questionBox.style.textAlign = "left";
+  questionAsked.appendChild(scoreList);
+  if (highScores === null) {
+    questionText.textContent = "No high scores recorded!";
+    scoreList.style.display = "none";
+  } else {
+    questionText.textContent = "High Scores";
+    for (i = 0; i < highScores.length; i++) {
+      var li = document.createElement("li");
+      scoreList.appendChild(li);
+      li.setAttribute("class", "highScore")
+      li.textContent = highScores[i].name + " - " + highScores[i].score;
+    };
+  }
+  questionBox.appendChild(goBackBtn);
+  questionBox.appendChild(clearHighScoresBtn);
+}
 
+function submitScore() {
+  timer.remove();
   questionAsked.textContent = "High scores";
-  var stored = localStorage.getItem("scores")
-  highScores = JSON.parse(stored);
   if (highScores === null) {
     highScores = [
       {
@@ -106,22 +137,9 @@ function submitScore() {
     li.setAttribute("class", "highScore")
     li.textContent = highScores[i].name + " - " + highScores[i].score;
   }
-  questionAsked.appendChild(goBackBtn)
-  goBackBtn.setAttribute("type", "button");
-  goBackBtn.setAttribute("class", "highScoreBtns");
-  goBackBtn.textContent = "Go back";
-  questionAsked.appendChild(clearHighScoresBtn);
-  clearHighScoresBtn.setAttribute("type", "button");
-  clearHighScoresBtn.setAttribute("class", "highScoreBtns");
-  clearHighScoresBtn.textContent = "Clear high scores";
-
-  clearHighScoresBtn.addEventListener("click", function() {
-    localStorage.clear();
-    scoreList.style.visibility = "hidden";
-  });
-  goBackBtn.addEventListener("click", function() {
-    location.reload()
-  });
+  questionBox.appendChild(goBackBtn)
+  questionBox.appendChild(clearHighScoresBtn);
+  questionBox.style.textAlign = "left";
 }
 
 function finishQuiz() {
@@ -161,7 +179,7 @@ function badFeedback() {
 
 function giveFeedback(event) {
   var selectedAnswer = event.target;
-  if (num <= 4) {
+  if (num <= questionsLength - 1) {
     if (selectedAnswer.textContent === questions[num].correctAnswer) {
       goodFeedback();
       score += 5;
@@ -174,7 +192,7 @@ function giveFeedback(event) {
       num++;
       nextQuestion();
     }
-  } else if (num = 5) {
+  } else if (num = questionsLength) {
     if (selectedAnswer.textContent === questions[num].correctAnswer) {
       goodFeedback();
       score += 5;
@@ -193,7 +211,7 @@ function countdown() {
   timer.textContent = "Time: " + timeLeft;
 
   var timeInterval = setInterval(function() {
-      if (timeLeft === 0 && num === 6) {
+      if (timeLeft === 0 && num === questionsLength + 1) {
         clearInterval(timeInterval);
         timer.textContent = "Time: " + timeLeft;
       } else if (timeLeft === 0) {
@@ -219,6 +237,8 @@ function nextQuestion() {
 function addFirstQuestion() {
 
   startBtn.remove();
+  highScoresLink.remove();
+  document.querySelector("#header").style.justifyContent = "right";
   document.querySelector("#intro").remove();
   questionAsked.appendChild(answerList);
   answerList.appendChild(answer1);
@@ -248,3 +268,14 @@ answerList.addEventListener("click", giveFeedback);
 
 submitBtn.addEventListener("click", submitScore);
 
+highScoresLink.addEventListener("click", viewHighScores);
+
+clearHighScoresBtn.addEventListener("click", function() {
+  localStorage.clear();
+  questionAsked.textContent = "No high scores recorded!";
+  scoreList.style.display = "none";
+});
+
+goBackBtn.addEventListener("click", function() {
+  location.reload()
+});
