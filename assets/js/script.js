@@ -79,6 +79,7 @@ function displayScore() {
   };
   questionAsked.appendChild(nameForm);
   nameForm.appendChild(nameLabel);
+  nameForm.setAttribute("onsubmit", "return false");
   nameForm.appendChild(nameInput);
   nameForm.appendChild(submitBtn);
   submitBtn.setAttribute("id", "submitBtn");
