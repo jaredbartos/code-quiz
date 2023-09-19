@@ -2,7 +2,7 @@
 
 ## Description
 
-This webpage provides a quiz based on the JavaScript computing language. It will test the user on a series of topics, then provide a screen to enter the user's name. The user's name and score will then be stored in Local Storage to show maintain a high score leaderboard.
+This webpage provides a quiz based on the JavaScript computing language. It will test the user on a series of topics, then provide a screen to enter the user's name. The user's name and score will then be stored in Local Storage to maintain a high score leaderboard.
 
 ## Usage
 
