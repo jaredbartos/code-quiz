@@ -174,25 +174,23 @@ function giveFeedback(event) {
   if (num <= questionsLength - 1) {
     if (selectedAnswer.textContent === questions[num].correctAnswer) {
       goodFeedback();
-      score += 5;
+      score += 100/questionsLength;
       num++;
       nextQuestion();
     } else if (selectedAnswer.textContent !== questions[num].correctAnswer && selectedAnswer.getAttribute("class") === "answer") {
       badFeedback();
       timeLeft -= 10;
-      score -= 2;
       num++;
       nextQuestion();
     }
   } else if (num = questionsLength) {
     if (selectedAnswer.textContent === questions[num].correctAnswer) {
       goodFeedback();
-      score += 5;
+      score += 100/questionsLength;
       num++;
       finishQuiz();
     } else if (selectedAnswer.textContent !== questions[num].correctAnswer && selectedAnswer.getAttribute("class") === "answer") {
       badFeedback();
-      score -= 2;
       num++;
       finishQuiz();
     }
@@ -218,13 +216,13 @@ function displayScore() {
   questionAsked.removeChild(answerList);
   questionAsked.appendChild(finalScoreText);
   finalScoreText.setAttribute("id", "finalScoreMessage");
-  if (score === 25) {
-    finalScoreText.textContent = "Congratulations! You have achieved a perfect score of " + score + "!";
+  if (score === 100) {
+    finalScoreText.textContent = "Congratulations! You have achieved a perfect score of " + score + "%!";
   } else if (score >= 0) {
-    finalScoreText.textContent = "Your final score is " + score + ".";
+    finalScoreText.textContent = "Your final score is " + score + "%.";
   } else {
     score = 0
-    finalScoreText.textContent = "Your final score is " + score + ".";
+    finalScoreText.textContent = "Your final score is " + score + "%.";
   };
   // Create form for name input for saving score
   questionAsked.appendChild(nameForm);
@@ -267,7 +265,7 @@ function submitScore() {
     var li = document.createElement("li");
     scoreList.appendChild(li);
     li.setAttribute("class", "highScore")
-    li.textContent = highScores[i].name + " - " + highScores[i].score;
+    li.textContent = highScores[i].name + " - " + highScores[i].score + "%";
   }
   questionBox.appendChild(goBackBtn)
   questionBox.appendChild(clearHighScoresBtn);
