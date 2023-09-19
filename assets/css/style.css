@@ -124,6 +124,7 @@ form {
 
 .highScoreBtns {
   margin-top: 10px;
+  margin-right: 10px;
   padding: 5px 25px;;
   font-size: 150%;
   background-color: var(--dark-purple);
