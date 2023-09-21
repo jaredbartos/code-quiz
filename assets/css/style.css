@@ -144,7 +144,7 @@ ol {
 }
 
 /* MEDIA QUERIES */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .answer {
     width: 250px;
   }
@@ -163,6 +163,9 @@ ol {
   }
   #submitBtn {
     margin-left: 0;
+  }
+  .highScore {
+    width: 100%;
   }
 }
 
